@@ -41,6 +41,10 @@ contract web2decentorage {
     function getwebUser() public restricted view returns(address) {
       return webUser;
     }
+
+    function getBalance() public restricted returns(uint) {
+        return this.balance;
+    }
     
     modifier restricted() {
         require(msg.sender == decentorage);

@@ -52,5 +52,76 @@ describe('web2decentorage', ()=>{
         assert.equal(accounts[1],storageNodes[0]);
     });
 
+    it('checking the contract balance after a user pay', async() => {
+        await web2decentorage.methods.getPaidByUser().send({
+            from: accounts[1],
+            value: 500
+        });
 
+        const balance = await web2decentorage.methods.getBalance().call({
+            from: accounts[0]
+        });
+
+        assert.equal(balance,500);
+    });
+
+    it('paying a storage node after getting paid by a user', async() => {
+        console.log(await web3.eth.getBalance(accounts[1]));
+        await web2decentorage.methods.getPaidByUser().send({
+            from: accounts[1],
+            value: 500
+        });
+        console.log(await web3.eth.getBalance(accounts[1]));
+
+        var balance = await web2decentorage.methods.getBalance().call({
+            from: accounts[0]
+        });
+        assert.equal(balance, 500);
+
+        await web2decentorage.methods.addStorageNode(accounts[1]).send({
+            from: accounts[0]
+        });
+       
+
+        await web2decentorage.methods.payStorageNode(accounts[1]).send({
+            from: accounts[0]
+        });
+        balance = await web2decentorage.methods.getBalance().call({
+            from: accounts[0]
+        });
+        assert.equal(balance, 400);
+
+        await web2decentorage.methods.payStorageNode(accounts[1]).send({
+            from: accounts[0]
+        });
+        balance = await web2decentorage.methods.getBalance().call({
+            from: accounts[0]
+        });
+        assert.equal(balance, 300);
+
+        await web2decentorage.methods.payStorageNode(accounts[1]).send({
+            from: accounts[0]
+        });
+        balance = await web2decentorage.methods.getBalance().call({
+            from: accounts[0]
+        });
+        assert.equal(balance, 200);
+
+        await web2decentorage.methods.payStorageNode(accounts[1]).send({
+            from: accounts[0]
+        });
+        balance = await web2decentorage.methods.getBalance().call({
+            from: accounts[0]
+        });
+        assert.equal(balance, 100);
+
+        await web2decentorage.methods.payStorageNode(accounts[1]).send({
+            from: accounts[0]
+        });
+        balance = await web2decentorage.methods.getBalance().call({
+            from: accounts[0]
+        });
+        assert.equal(balance, 0);
+
+    });
 });
