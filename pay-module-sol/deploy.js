@@ -17,6 +17,7 @@ const deploy = async () => {
         .deploy({data: bytecode, arguments: [499, 100]})    //the arguments should be sent to  the contract constructor
         .send({gas: '1000000', from: accounts[0]});
 
+    console.log(interface);
     console.log('Contract deployed to', result.options.address);
 };
 deploy();

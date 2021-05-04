@@ -1,7 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
+import web3 from './web3';
+import web2decentorage from './web2decentorage'
 
 function App() {
+  web3.eth.getAccounts().then(console.log); //can't use await here we use then instead
   return (
     <div className="App">
       <header className="App-header">
