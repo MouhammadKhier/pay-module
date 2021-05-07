@@ -6,23 +6,23 @@ import { Component } from 'react';
 
 class App extends Component {
   
-  constructor(props) {
-    super(props);
-
-    this.state = { manager: ''};
+  //this code is running inside the constructor
+  state = {
+    manager: ''
   };
 
   async componentDidMount() {
-    //const manager = await web2decentorage.methods.getDecentorage().call();
+    const manager = await web2decentorage.methods.getDecentorage().call();
 
     //console.log(manager);
 
-    //this.setState({ manager });
+    this.setState({ manager });
   }
 
   render() {
-    console.log(web2decentorage.methods.getDecentorage());
+    //console.log(web2decentorage.methods.getDecentorage());
     web3.eth.getAccounts().then(console.log); //can't use await here we use then instead
+    //console.log(web3.version);
     return (
       <div>
         <h2>web2decentorage Contract</h2>

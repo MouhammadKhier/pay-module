@@ -34,7 +34,7 @@ contract web2decentorage {
       return storageNodes;
     }
 
-    function getDecentorage() public restricted view returns(address) {
+    function getDecentorage() public view returns(address) {
       return decentorage;
     }
 
